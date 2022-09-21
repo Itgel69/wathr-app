@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="weather.css" />
+  </head>
+  <body>
+    <div class="con">
+      <input class="search" type="search" />
+      <img class="loc" src="geogusser.png" />
+      <div id="city"></div>
+      <img class="sun" src="Clouds.png" />
+      <div class="temp"></div>
+      <div class="theme"></div>
+    </div>
+    <img class="sun-2" src="cheeseball.png" />
+  </body>
+  <script>
+    let temp = document.getElementsByClassName("temp");
+    let type = document.getElementsByClassName("theme");
+    let namee = document.getElementById("search");
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1;
+    namee.addEventListener("keydown", (el) => {
+      if (el.key == "Enter") {
+        getData(namee.value);
+      }
+    });
+    switch (month) {
+      case 1:
+        month = "January";
+        break;
+      case 2:
+        month = "February";
+        break;
+      case 3:
+        month = "March";
+        break;
+      case 4:
+        month = "April";
+        break;
+      case 5:
+        month = "May";
+        break;
+      case 6:
+        month = "June";
+        break;
+      case 7:
+        month = "July";
+        break;
+      case 8:
+        month = "August";
+        break;
+      case 9:
+        month = "September";
+      case 10:
+        month = "October";
+        break;
+      case 11:
+        month = "November";
+        break;
+      case 12:
+        month = "December";
+        break;
+    }
+    const getData = async (city) => {
+      const data = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0a9b1d70e2d449a7fcadd8c7ceaaade5`
+      );
+      const response = await data.json();
+      const para = document.createElement("p");
+      console.log(response);
+      temp.innerHTML = Math.floor(info.main.temp) + "c°";
+      type.innerHTML = info.weather[0].main;
+      console.log(type);
+    };
+  </script>
+</html>
