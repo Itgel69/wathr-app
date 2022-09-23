@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="weather.css" />
+  </head>
+  <body id="body">
+    <div id="con">
+      <input id="search" type="search" />
+      <img class="loc" src="geogusser.png" />
+      <div id="city"></div>
+      <img id="sun" src="Sun.png" />
+      <div id="temp">_c°</div>
+      <div id="type">___</div>
+      <div id="dayornight"></div>
+    </div>
+    <img class="sun-2" src="cheeseball.png" />
+  </body>
+  <script>
+    let temp = document.getElementById("temp");
+    let type = document.getElementById("type");
+    let namee = document.getElementById("search");
+    let daytime = document.getElementById("dayornight");
+    let sun = document.getElementById("sun");
+    namee.addEventListener("keydown", (el) => {
+      if (el.key == "Enter") {
+        getData(namee.value);
+      }
+    });
+    const getData = async (city) => {
+      const data = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=0a9b1d70e2d449a7fcadd8c7ceaaade5`
+      );
+      const info = await data.json();
+      const para = document.createElement("p");
+      temp.innerHTML = Math.floor(info.main.temp) + "c°";
+      type.innerHTML = info.weather[0].main;
+      daytime.innerHTML = info.sys.type;
+      if (daytime.innerHTML == 1) {
+        console.log("it is Night time");
+      } else {
+        console.log("it is Day time");
+      }
+      if (daytime.innerHTML == 1) {
+        document.getElementById("body").style =
+          "background-color: rgb(105, 105, 105)";
+      } else if (daytime.innerHTML == 2) {
+        document.getElementById("body").style =
+          "background-color: rgb(48, 138, 138);";
+      }
+      if (daytime.innerHTML == 1) {
+        document.getElementById("con").style =
+          "background-color: blue";
+      } else if (daytime.innerHTML == 2) {
+        document.getElementById("con").style =
+          "background-color:aqua";
+      }
+
+      if (type.innerHTML == "Clear") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moon.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./Sun.png";
+        }
+      }
+      if (type.innerHTML == "Clouds") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moonclouds.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./sunclouds.png";
+        }
+      }
+      if (type.innerHTML == "Mist") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moonwindy.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./sunwindy.png";
+        }
+      }
+      if (type.innerHTML == "Rain") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moonrain.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./sunrain.png";
+        }
+      }
+      if (type.innerHTML == "Snow") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moonsnow.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./sunsnow.png";
+        }
+      }
+      if (type.innerHTML == "Thunderstorm") {
+        if (daytime.innerHTML == 1) {
+          sun.src = "./moonthunder.png";
+        } else if (daytime.innerHTML == 2) {
+          sun.src = "./sunthunder.png";
+        }
+      }
+
+      console.log(type);
+    };
+  </script>
+</html>
